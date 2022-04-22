@@ -1,6 +1,5 @@
 import requests
 
-
 def get_stock_price(ticker_symbol, api):
 	url = f"https://api.twelvedata.com/price?symbol={ticker_symbol}&apikey={api}"
 	response = requests.get(url).json()
@@ -13,7 +12,8 @@ def get_stock_quote(ticker_symbol, api):
 	return response
 
 ticker = input("Enter the stock name (ex. NVDA): ")
-api_key = "67e5bf113a084110afcbe1df5d034b8f"
+with open("api.txt", "r") as f:
+	api_key = f.readline()
 stockdata = get_stock_quote(ticker, api_key)
 stock_price = get_stock_price(ticker, api_key)
 
