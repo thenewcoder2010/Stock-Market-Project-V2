@@ -18,6 +18,8 @@ with open("api.txt", "r") as f:
 stockdata = get_stock_quote(ticker, api_key)
 stock_price = get_stock_price(ticker, api_key)
 
+# Getting Stock Data
+
 exchange = stockdata['exchange']
 name = stockdata['name']
 open_price = stockdata['open']
@@ -38,9 +40,19 @@ print("-------------------------------------------")
 print(f"Open: {open_price}\nHigh: {high}\nLow: {low}\nClose: {close_price}\nPrevious Close: {previous_close}\nPercentage Change: {percentage_change}%")
 print("-------------------------------------------")
 print(f"52 Week High: {fiftytwo_week_high}\n52 Week Low: {fiftytwo_week_low}")
-print("-------------------------------------------")
-#
-file_name = ticker + ".csv"
-with open(file_name, "a+") as file:
-	reader = csv.reader(file)
 
+print("-------------------------------------------")
+# Writing to CSV File
+empty = False
+file_name = ticker + ".csv"
+with open(file_name, "r") as file:
+	to_read = csv.reader(file)
+	for row in to_read:
+		if row  == []:
+			empty = True
+			break
+
+if empty == True:
+	with open(file_name, "r") as file_write_empty:
+		writer_empty = csv.writer(file_write_empty)
+		writer_empty.writerow(["Name","Open","High","Low","Percentage Change","Close"])
