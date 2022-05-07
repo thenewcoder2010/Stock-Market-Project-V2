@@ -43,16 +43,23 @@ print(f"52 Week High: {fiftytwo_week_high}\n52 Week Low: {fiftytwo_week_low}")
 
 print("-------------------------------------------")
 # Writing to CSV File
-empty = False
+got_in = False
 file_name = ticker + ".csv"
+print(f"File is {file_name}")
 with open(file_name, "r") as file:
 	to_read = csv.reader(file)
 	for row in to_read:
-		if row  == []:
-			empty = True
-			break
+		got_in = True
+		print(row)
 
-if empty == True:
-	with open(file_name, "r") as file_write_empty:
-		writer_empty = csv.writer(file_write_empty)
-		writer_empty.writerow(["Name","Open","High","Low","Percentage Change","Close"])
+if got_in == False:
+	with open(file_name, "a") as file_empty:
+		empty_writer = csv.writer(file_empty)
+		header = ['Name', 'Stock Price', 'Open', 'Close', 'Percentage Change', 'Fifty Two Week High', 'Fifty Two Week Low']
+		empty_writer.writerow(header)
+
+else:
+	with open(file_name, "a") as file_full:
+		full_writer = csv.writer(file_full)
+		header = [ticker, stock_price, open_price, close_price, percentage_change, fiftytwo_week_high, fiftytwo_week_low]
+		full_writer.writerow(header)	
