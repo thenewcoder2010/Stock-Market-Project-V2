@@ -1,4 +1,6 @@
 import requests
+import matplotlib
+from datetime import date
 import csv
 
 def get_stock_price(ticker_symbol, api):
@@ -31,6 +33,9 @@ close_price = stockdata['close']
 fiftytwo_week_high = stockdata['fifty_two_week']['high']
 fiftytwo_week_low = stockdata['fifty_two_week']['low']
 previous_close = stockdata['previous_close']
+today = date.today()
+d2 = today.strftime("%B %d, %Y")
+print("d2 =", d2)
 
 # Printing the information on the console
 print(f"Exchange: {exchange}\nVolume: {volume}")
@@ -55,11 +60,11 @@ with open(file_name, "r") as file:
 if got_in == False:
 	with open(file_name, "a") as file_empty:
 		empty_writer = csv.writer(file_empty)
-		header = ['Name', 'Stock Price', 'Open', 'Close', 'Percentage Change', 'Fifty Two Week High', 'Fifty Two Week Low']
+		header = ['Name', 'Date', 'Stock Price', 'Open', 'Close', 'Percentage Change', 'Fifty Two Week High', 'Fifty Two Week Low']
 		empty_writer.writerow(header)
 
 else:
 	with open(file_name, "a") as file_full:
 		full_writer = csv.writer(file_full)
-		header = [ticker, stock_price, open_price, close_price, percentage_change, fiftytwo_week_high, fiftytwo_week_low]
-		full_writer.writerow(header)	
+		header = [ticker,d2,stock_price, open_price, close_price, percentage_change, fiftytwo_week_high, fiftytwo_week_low]
+		full_writer.writerow(header)
