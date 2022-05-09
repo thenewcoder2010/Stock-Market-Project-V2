@@ -1,5 +1,6 @@
 import requests
-import matplotlib
+import matplotlib as plt
+import pandas as pd
 from datetime import date
 import csv
 
@@ -68,3 +69,12 @@ else:
 		full_writer = csv.writer(file_full)
 		header = [ticker,d2,stock_price, open_price, close_price, percentage_change, fiftytwo_week_high, fiftytwo_week_low]
 		full_writer.writerow(header)
+
+df = pd.read_csv('NVDA.csv')
+
+table = input("Would you like to see the table? (y/n): ")
+if table == "y":
+	print(df.to_string()) 
+
+else:
+	print("Okay, bye!")
